@@ -249,8 +249,10 @@ porque su construcción se vuelve cuadrática.
 
 ![Búsqueda aleatoria frente a ordenada](./graficas/02_busqueda_aleatorio_vs_ordenado.png)
 
-El orden perjudica especialmente al ABB: al insertar IDs ascendentes, su altura se aproxima a `N`.
-La Lista y el B+ muestran cambios menores en la búsqueda.
+El orden de inserción perjudica de forma drástica al ABB: con IDs ascendentes su altura es `N` y, con `N = 20.000`,
+buscar es ≈ 530 veces más lento. El B+ casi no cambia (≈ 1×). La Lista hace los mismos pasos en ambos casos, pero
+llega a ser ≈ 2,5× más lenta con IDs ordenados; es un efecto de constantes (probablemente localidad de memoria),
+no de complejidad.
 
 ### 7.3 ¿Cómo escala la construcción?
 
@@ -285,9 +287,10 @@ una altura lineal elimina la ventaja esperada de un árbol de búsqueda.
 
 ![Tiempo normalizado de búsqueda](./graficas/07_tiempo_normalizado_busqueda.png)
 
-La normalización muestra que la Lista se comporta como O(N), mientras que el ABB aleatorio y el B+
-se mantienen cercanos a sus costos logarítmicos. Las constantes de Python y el uso de `bisect` en C
-influyen en las diferencias absolutas.
+El ABB aleatorio y el B+ se mantienen casi planos al normalizar por log₂N, lo que respalda un comportamiento
+logarítmico. La Lista crece aproximadamente de forma lineal (pendiente log-log 1,13), pero con `N` grande lo hace
+más rápido que O(N): su tiempo por elemento recorrido aumenta, algo coherente con efectos de memoria caché. Las
+constantes de Python y el uso de `bisect` en el B+ también influyen en las diferencias absolutas.
 
 ### 7.8 ¿Cuánta aceleración ofrecen los árboles frente a la Lista?
 
@@ -314,9 +317,8 @@ repetir la misma operación un número mayor de veces.
 
 ![Rendimiento del B+ según su orden](./graficas/11_bplus_vs_orden.png)
 
-Modificar el máximo de claves por nodo cambia la altura y el costo de buscar dentro de cada nodo.
-El resultado permite justificar el uso de 64 claves por nodo como un compromiso entre altura y trabajo
-interno.
+Más claves por nodo reducen la altura (de 9 niveles con 4 claves a 2 con 512) y el tiempo de búsqueda. A partir de
+64 claves la mejora es marginal (≈ 7 % entre 64 y 512), por eso se eligió 64; no es un óptimo estricto.
 
 ## 8. Verificación de resultados
 
