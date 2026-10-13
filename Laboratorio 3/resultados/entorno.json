@@ -1,0 +1,14 @@
+{
+  "fecha_hora": "2026-10-12T17:08:36",
+  "sistema_operativo": "Windows-10-10.0.26300-SP0",
+  "python": "CPython 3.11.9",
+  "cpu": "AMD Ryzen 7 5800X 8-Core Processor",
+  "numpy": "2.4.6",
+  "pandas": "3.0.6",
+  "matplotlib": "3.11.2",
+  "nucleos_fisicos": 8,
+  "nucleos_logicos": 16,
+  "frecuencia_cpu_mhz": 4200,
+  "ram_total_gb": 31.9,
+  "conectado_a_corriente": "PC de escritorio"
+}

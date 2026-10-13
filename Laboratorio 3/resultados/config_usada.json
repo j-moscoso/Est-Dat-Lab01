@@ -1,0 +1,39 @@
+{
+  "perfil": "completo",
+  "tamanos": [
+    100,
+    500,
+    1000,
+    2000,
+    5000,
+    10000,
+    20000,
+    50000,
+    100000
+  ],
+  "m": 1000,
+  "repeticiones": 10,
+  "minimo_s": 1.0,
+  "max_n_abb_ordenado": 20000,
+  "n_fijo_exp2": 10000,
+  "m_valores_exp2": [
+    10,
+    100,
+    1000,
+    10000
+  ],
+  "n_exp3": 100000,
+  "ordenes_exp3": [
+    4,
+    8,
+    16,
+    32,
+    64,
+    128,
+    256,
+    512
+  ],
+  "orden_bplus": 64,
+  "usar_bisect_bplus": true,
+  "semilla": 2026
+}
