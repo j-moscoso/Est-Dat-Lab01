@@ -152,6 +152,4 @@ Las gráficas y los CSV ya están en el repositorio; `python src/analisis.py` lo
 
 ---
 
-## 9. Uso de herramientas de IA
 
-El código se desarrolló con ayuda de Claude (base de estructuras, experimentos y análisis) y GitHub Copilot (ajustes de pruebas y metodología de medición). Los experimentos se ejecutaron en el equipo del estudiante, y los datos, los cálculos, las gráficas y las conclusiones fueron revisados por él. Ver la declaración completa en el [README](../README.md).
