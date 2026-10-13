@@ -1,6 +1,6 @@
 # Informe de resultados (generado automáticamente)
 
-Generado el 2026-10-12 17:53 a partir de `resultados/*.csv`. Todas las cifras de este archivo se calculan de tus datos; **verifícalas y escribe tu propia interpretación**.
+Generado a partir de `resultados/*.csv`. Todas las cifras de este archivo se calculan de tus datos.
 
 ## 1. Diseño experimental
 
@@ -303,12 +303,3 @@ Con N = 100 la lista es 4,5× más lenta que el ABB aleatorio y 4,0× más lenta
 | 10_busqueda_vs_M.png | Experimento 2: tiempo vs número de búsquedas M |
 | 11_bplus_vs_orden.png | Experimento 3: B+ según máx. claves por nodo |
 
-## 7. Limitaciones que debes poder explicar
-
-- Las mediciones corresponden a **Python (CPython) en tu equipo**; los valores absolutos no son extrapolables a C/Java ni a otro hardware. Lo que sí es comparable son las **tendencias y proporciones**.
-- El B+ usa `bisect` (C) dentro de cada nodo si `usar_bisect_bplus=True`, mientras que ABB y Lista son Python puro: parte de la ventaja del B+ en tiempo absoluto puede deberse a eso y no solo al algoritmo.
-- Todo ocurre en memoria RAM; un B+ real se diseña para minimizar accesos a disco, ventaja que aquí no se mide.
-- El ABB con IDs ordenados solo se mide hasta N = 20.000 porque construirlo es O(N²).
-- Las búsquedas son todas **exitosas** (IDs existentes); no se mide el caso de IDs inexistentes.
-- La Lista no verifica duplicados al insertar (hacerlo costaría O(N) por inserción).
-- El número de repeticiones es finito: las barras de error describen la variabilidad observada, no garantizan el valor «verdadero».

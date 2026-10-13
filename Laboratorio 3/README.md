@@ -19,18 +19,7 @@ Mi responsabilidad fue verificar que:
 3. Las gráficas representaran correctamente los datos de los archivos CSV;
 4. Las conclusiones correspondieran a los resultados obtenidos.
 
-## 1. El problema
-
-Cada estudiante es un registro `{id, nombre, edad, promedio}`. El sistema debe permitir:
-
-1. **Buscar** un estudiante por su ID.
-2. **Insertar** un nuevo estudiante.
-3. **Listar** todos los estudiantes en orden ascendente de ID.
-
-Objetivo: medir experimentalmente (con estadística) cómo cambia el rendimiento de cada estructura al aumentar `N` y `M`
-(número de búsquedas), y contrastar los resultados con la complejidad teórica.
-
-## 2. Contenido del repositorio
+## 1. Contenido del repositorio
 
 ```
 .
@@ -44,8 +33,19 @@ Objetivo: medir experimentalmente (con estadística) cómo cambia el rendimiento
 │   ├── experimentos.py          <- genera datos, mide tiempos y guarda resultados/*.csv
 │   └── analisis.py              <- estadística, gráficas e informe con tablas
 ├── resultados/                  <- CSV crudos, CSV resumen, entorno.json, informe_generado.md
-└── graficas/                    <- 11 gráficas PNG (YA generadas; no hace falta repetir los experimentos)
+└── graficas/                    <- 11 gráficas PNG (YA generadas)
 ```
+
+## 2. El problema
+
+Cada estudiante es un registro `{id, nombre, edad, promedio}`. El sistema debe permitir:
+
+1. **Buscar** un estudiante por su ID.
+2. **Insertar** un nuevo estudiante.
+3. **Listar** todos los estudiantes en orden ascendente de ID.
+
+Objetivo: medir experimentalmente (con estadística) cómo cambia el rendimiento de cada estructura al aumentar `N` y `M`
+(número de búsquedas), y contrastar los resultados con la complejidad teórica.
 
 ## 3. Cómo reproducir los experimentos
 
@@ -62,9 +62,7 @@ python src/experimentos.py              # 3) experimento completo (decenas de mi
 python src/analisis.py                  # 4) gráficas + tablas + informe en resultados/
 ```
 
-Antes del paso 3: conecta el equipo a la corriente, cierra navegadores y otras aplicaciones, y **no uses Google Colab**
-(los recursos compartidos introducen variabilidad que invalida las mediciones). Durante la ejecución no uses el
-computador. El script no lee ni escribe en disco dentro de las secciones cronometradas.
+Con el PC conectado a la corriente, sin navegadores y otras aplicaciones. Se ejecuta el Script sin usar el equipo. El script no lee ni escribe en disco dentro de las secciones cronometradas.
 
 Tiempo aproximado del paso 3: la corrida completa corregida tardó 43,7 minutos en el equipo usado. El tiempo depende
 del hardware y de la ventana mínima de 1 segundo aplicada a cada medición. Se puede ejecutar un solo experimento con
