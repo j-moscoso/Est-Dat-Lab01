@@ -1,0 +1,8 @@
+Quadtree con N = 10000 puntos en 10000 m x 10000 m (capacidad por hoja = 4)
+  hojas: 5197 (vacías: 631), altura: 8, puntos por hoja: 1.92
+Búsqueda por radio de 500 m con 1000 consultas aleatorias
+  vecinos encontrados: mínimo 18, máximo 105, promedio 74.7
+  promedio teórico sin efecto de borde: densidad x área = 78.5
+Vecino más cercano con 1000 consultas aleatorias
+  distancia promedio: 49.9 m, máxima: 155.4 m
+Diferencias entre Quadtree y fuerza bruta en las 2000 verificaciones: 0
