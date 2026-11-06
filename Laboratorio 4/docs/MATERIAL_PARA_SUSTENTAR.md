@@ -82,9 +82,9 @@ Cada nodo representa un rectángulo y se subdivide en cuatro. Las zonas con mayo
 
 ![Tiempo de búsqueda por radio frente a N](../graficas/04_tiempo_radio_vs_N.png)
 
-*Figura 4. Tiempo promedio por consulta de radio de 500 m.*
+*Figura 4. Tiempo promedio por consulta de radio de 500 m. (media ± desviación estándar de 10 repeticiones)*
 
-La fuerza bruta crece casi linealmente porque siempre revisa los `N` puntos. El Quadtree crece mucho más lentamente porque descarta cuadrantes. En el zoom se observa que con `N = 20` todavía pierde y desde `N = 50` empieza a ganar.
+La fuerza bruta crece en línea recta con `N` porque revisa todos los puntos (de 83,5 µs con `N = 500` a 1.986,6 µs con `N = 10.000`), mientras que el Quadtree crece mucho más despacio (de 17,3 µs a 111,9 µs) porque descarta cuadrantes completos. Con `N = 20` el Quadtree todavía pierde (0,68×) y con `N = 50` ya gana (1,19×), así que el cruce está entre esos dos tamaños, cerca de `N ≈ 40` por interpolación.
 
 ### 6.2 Vecino más cercano frente a `N`
 
@@ -92,7 +92,7 @@ La fuerza bruta crece casi linealmente porque siempre revisa los `N` puntos. El 
 
 *Figura 5. Tiempo promedio por consulta del vecino más cercano.*
 
-El Quadtree obtiene pronto un candidato y usa su distancia para podar más cuadrantes. Por eso la ventaja crece más que en la búsqueda por radio: en `N = 10.000` alcanza aproximadamente `79,6×`.
+El Quadtree casi no crece con `N` (de 14,0 µs con `N = 500` a 25,0 µs con `N = 10.000`) porque el vecino más cercano devuelve un solo punto y calcula unas 6 distancias sin importar el tamaño, mientras que el radio debe devolver todos los puntos del círculo (≈75 con `N = 10.000`), cantidad que crece con `N`. Con `N = 50` el resultado es casi un empate (1,05×).
 
 ### 6.3 Aceleración
 
@@ -100,7 +100,7 @@ El Quadtree obtiene pronto un candidato y usa su distancia para podar más cuadr
 
 *Figura 6. Cociente entre el tiempo de fuerza bruta y el tiempo del Quadtree.*
 
-La línea horizontal en `1` representa un empate. Por encima de la línea gana el Quadtree y por debajo gana la fuerza bruta. El cruce de ambas consultas está en `N = 50` en esta corrida.
+La línea en `1` es un empate: por encima gana el Quadtree. Con `N = 10.000` la aceleración es de 17,8× en el radio y 79,6× en el vecino más cercano; la del vecino sigue subiendo porque su costo es casi constante, mientras que la del radio se aplana porque también debe devolver más puntos. Con puntos agrupados el comportamiento es muy parecido (19,5× frente a 17,8×), así que la conclusión no depende de la distribución.
 
 ### 6.4 Distancias calculadas
 
@@ -108,7 +108,7 @@ La línea horizontal en `1` representa un empate. Por encima de la línea gana e
 
 *Figura 7. Número promedio de distancias calculadas por consulta.*
 
-Esta gráfica explica el origen de la mejora. La fuerza bruta calcula exactamente `N` distancias. Con `N = 10.000`, el Quadtree calcula cerca de 103 distancias para la búsqueda por radio; aun así, el tiempo no mejora 97 veces porque recorrer nodos y comparar rectángulos también tiene un costo.
+Esta gráfica explica el origen de la mejora y no depende de la máquina: la fuerza bruta calcula `N` distancias, mientras que con `N = 10.000` el Quadtree calcula unas 103 en el radio y unas 6 en el vecino más cercano (las dos curvas del Quadtree quedan pegadas al eje; los valores exactos están en el informe). El tiempo del radio mejora 17,8 veces y no 97 porque recorrer unos 125 nodos y comparar rectángulos también tiene un costo.
 
 ### 6.5 Costo de construcción
 
@@ -116,15 +116,15 @@ Esta gráfica explica el origen de la mejora. La fuerza bruta calcula exactament
 
 *Figura 8. Tiempo necesario para construir el Quadtree.*
 
-Construir el árbol tiene un costo inicial que aumenta con `N`. Como los puntos son estáticos, ese costo se paga una sola vez. Para `N = 10.000`, se recupera aproximadamente después de 13 consultas de radio.
+La construcción crece con `N` porque cada punto se inserta en el árbol (unos 25 ms con `N = 10.000`), pero como los puntos son estáticos se hace una sola vez y se compensa con unas 13 consultas de radio, valor que se mantiene casi constante para `N ≥ 200`.
 
 ### 6.6 Efecto del radio
 
 ![Efecto del radio de búsqueda](../graficas/09_efecto_del_radio.png)
 
-*Figura 9. Tiempo y aceleración según el radio, con `N = 10.000`.*
+*Figura 9. Tiempo y aceleración según el radio, con `N = 10.000` (5 repeticiones por radio, por eso las barras de error son más anchas).*
 
-Cuando el radio aumenta, más puntos deben devolverse y menos cuadrantes pueden descartarse. Por eso la aceleración disminuye: el Quadtree todavía gana con un radio de 3.000 m, pero con 5.000 m la fuerza bruta resulta más rápida.
+La fuerza bruta casi no cambia con el radio (≈1.900 a 2.150 µs) porque siempre revisa los 10.000 puntos, mientras que el Quadtree pasa de 22 µs con 50 m a 3.672 µs con 5.000 m, porque con radios grandes devuelve más puntos y descarta menos cuadrantes. La aceleración baja de 86× a 0,59×: con 3.000 m es de 1,17× (casi un empate) y el cruce queda entre 3.000 m y 5.000 m, cuando el círculo ya abarca cerca de la mitad de los puntos.
 
 ## 7. Preguntas y respuestas
 
